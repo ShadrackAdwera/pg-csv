@@ -1,6 +1,6 @@
 # pg-csv
 
-Insert 5 million records into a postgres database in ~2 minutes.
+Insert 5 million records into a postgres database in ~3 minutes.
 
 ## The idea
 
@@ -12,6 +12,10 @@ Insert 5 million records into a postgres database in ~2 minutes.
 - All this to take less than 2 minutes.
 - Query sales data inserted into the database.
 - CSV file with 5 million sales record can be downloaded [here](https://excelbianalytics.com/wp/downloads-18-sample-csv-files-data-sets-for-testing-sales/)
+
+## DB Schema
+
+![sales](Sales.png)
 
 ## Technologies
 
