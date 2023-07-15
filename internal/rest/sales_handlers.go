@@ -1,13 +1,30 @@
 package rest
 
 import (
+	"mime/multipart"
 	"net/http"
 
 	internal "github.com/ShadrackAdwera/pg-csv/internal/sqlc"
 	"github.com/gin-gonic/gin"
 )
 
+type salesCsvData struct {
+	MatchCsvFile *multipart.FileHeader `form:"file" binding:"required"`
+}
+
 func (srv *Server) uploadSalesCsv(ctx *gin.Context) {
+	var csvFile salesCsvData
+
+	if err := ctx.ShouldBind(&csvFile); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"message": "provide the csv sales file"})
+		return
+	}
+
+	if err := srv.distro.DistroDataOnCsv(ctx, csvFile.MatchCsvFile); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"message": "failed to distribute task to queue"})
+		return
+	}
+
 	ctx.JSON(http.StatusCreated, gin.H{"message": "ping POST method from IP: " + ctx.ClientIP()})
 }
 
